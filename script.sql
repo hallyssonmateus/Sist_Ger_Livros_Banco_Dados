@@ -187,3 +187,45 @@ END;
 EXEC RegisDevolucao
     @LoanID = 2,
     @ReturnDate = '27/09/2024';
+
+	-- Relatórios
+
+ALTER TABLE Loans
+ALTER COLUMN return_date DATETIME NULL;
+
+ -- Gerar relatorios de livros emprestados
+SELECT l.loan_id, b.title, u.name, l.loan_date
+FROM Loans l
+JOIN Books b ON l.book_id = b.book_id
+JOIN Users u ON l.user_id = u.user_id
+WHERE l.return_date IS NULL;
+  
+-- Devolvidos
+SELECT l.loan_id, b.title, u.name, l.loan_date, l.return_date
+FROM Loans l
+JOIN Books b ON l.book_id = b.book_id
+JOIN Users u ON l.user_id = u.user_id
+WHERE l.return_date IS NOT NULL;
+   
+   
+-- Livros atualmente emprestados
+SELECT l.loan_id, b.title, u.name, l.loan_date
+FROM Loans l
+JOIN Books b ON l.book_id = b.book_id
+JOIN Users u ON l.user_id = u.user_id
+WHERE l.return_date IS NOT NULL;
+
+-- Rel. Usuarios com mais emprestimos
+SELECT u.name, COUNT(l.loan_id) AS total_empre
+FROM Users u
+JOIN Loans l ON u.user_id = l.user_id
+GROUP BY u.name
+ORDER BY total_empre DESC;
+
+-- Rel. Livros Empres. Genero
+SELECT 
+    b.genre AS Genero,
+    COUNT(l.loan_id) AS Total_Emprestimos
+FROM Books b
+JOIN Loans l ON l.book_id = b.book_id
+GROUP BY b.genre;
