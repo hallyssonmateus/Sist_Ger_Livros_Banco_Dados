@@ -50,3 +50,22 @@ DELETE FROM Books Where book_id=5;
 SELECT * FROM Books
 --Where title = '1984'
 Where author = 'Tiririca'
+
+-- Usuarios
+-- Adicionando novos usuarios
+INSERT INTO Users (name, email)
+VALUES 
+('João Silva', 'joao.silva@email.com'),
+('Maria Oliveira', 'maria.oliveira@email.com'),
+('Carlos Souza', 'carlos.souza@email.com'),
+('Ana Pereira', 'ana.pereira@email.com'),
+('Pedro Santos', 'pedro.santos@email.com');
+-- Atualizar informações de usuários existentes.
+UPDATE Users SET name = 'Hallysson Mateus', email = 'hallysson@gmail.com'
+Where user_id = 5;
+-- Excluir usuários.
+DELETE FROM Users Where user_id=3;
+-- Buscar usuários por nome, email, etc.
+SELECT * FROM Users
+--Where name = 'Hallysson Mateus'
+Where email = 'joao.silva@email.com'
